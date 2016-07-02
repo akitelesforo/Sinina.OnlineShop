@@ -1,7 +1,9 @@
 ﻿
 var app = angular.module('AngularAuthApp', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar']);
 
-app.config(function ($routeProvider) {
+app.config(function ($routeProvider, $locationProvider, $httpProvider) {
+
+    $httpProvider.defaults.useXDomain = true;
 
     $routeProvider.when("/home", {
         controller: "homeController",
@@ -42,7 +44,8 @@ app.config(function ($routeProvider) {
 
 });
 
-var serviceBase = 'http://ngauthenticationapi.azurewebsites.net/';
+var serviceBase = 'http://sininashopapi.com/';
+
 app.constant('ngAuthSettings', {
     apiServiceBaseUri: serviceBase,
     clientId: 'ngAuthApp'
@@ -50,6 +53,10 @@ app.constant('ngAuthSettings', {
 
 app.config(function ($httpProvider) {
     $httpProvider.interceptors.push('authInterceptorService');
+    $httpProvider.defaults.headers.common = {};
+    $httpProvider.defaults.headers.post = {};
+    $httpProvider.defaults.headers.put = {};
+    $httpProvider.defaults.headers.patch = {};
 });
 
 app.run(['authService', function (authService) {

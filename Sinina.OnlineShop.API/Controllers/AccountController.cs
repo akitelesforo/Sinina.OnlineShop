@@ -13,7 +13,6 @@ using Sinina.OnlineShop.API.Authentication;
 using Newtonsoft.Json.Linq;
 using Microsoft.Owin.Security.OAuth;
 using Microsoft.AspNet.Identity.Owin;
-using Sinina.OnlineShop.API.Models;
 
 namespace Sinina.OnlineShop.API.Controllers
 {
