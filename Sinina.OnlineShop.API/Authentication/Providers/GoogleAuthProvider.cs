@@ -2,7 +2,7 @@
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace Sinina.OnlineShop.API.Providers
+namespace Sinina.OnlineShop.API.Authentication.Providers
 {
     public class GoogleAuthProvider : IGoogleOAuth2AuthenticationProvider
     {

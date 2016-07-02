@@ -5,7 +5,7 @@ using Sinina.OnlineShop.API.Models;
 using Microsoft.Owin.Security;
 using System.Net.Http;
 using System;
-using Sinina.OnlineShop.API.Results;
+using Sinina.OnlineShop.API.Authentication.Results;
 using System.Security.Claims;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Linq;

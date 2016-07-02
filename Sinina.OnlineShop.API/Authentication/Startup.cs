@@ -5,7 +5,7 @@ using Microsoft.Owin.Security.OAuth;
 using Owin;
 using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.Facebook;
-using Sinina.OnlineShop.API.Providers;
+using Sinina.OnlineShop.API.Authentication.Providers;
 
 [assembly: OwinStartup(typeof(Sinina.OnlineShop.API.Authentication.Startup))]
 namespace Sinina.OnlineShop.API.Authentication
@@ -33,8 +33,9 @@ namespace Sinina.OnlineShop.API.Authentication
             {
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/token"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
-                Provider = new SimpleAuthorizationServerProvider()
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
+                Provider = new SimpleAuthorizationServerProvider(),
+                RefreshTokenProvider = new SimpleRefreshTokenProvider()
             };
 
             // Token Generation

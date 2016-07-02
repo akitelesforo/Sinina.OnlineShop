@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 
-namespace Sinina.OnlineShop.API.Results
+namespace Sinina.OnlineShop.API.Authentication.Results
 {
     public class ChallengeResult : IHttpActionResult
     {
