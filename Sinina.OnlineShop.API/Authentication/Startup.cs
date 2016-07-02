@@ -6,6 +6,7 @@ using Owin;
 using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.Facebook;
 using Sinina.OnlineShop.API.Authentication.Providers;
+using System.Data.Entity;
 
 [assembly: OwinStartup(typeof(Sinina.OnlineShop.API.Authentication.Startup))]
 namespace Sinina.OnlineShop.API.Authentication
@@ -18,19 +19,26 @@ namespace Sinina.OnlineShop.API.Authentication
 
         public void Configuration(IAppBuilder app)
         {
-            var config = new HttpConfiguration();
+            HttpConfiguration config = new HttpConfiguration();
 
             ConfigureOAuth(app);
 
             WebApiConfig.Register(config);
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.UseWebApi(config);
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<AuthContext, Migrations.Configuration>());
+
         }
 
         public void ConfigureOAuth(IAppBuilder app)
         {
-            var oAuthServerOptions = new OAuthAuthorizationServerOptions()
+            //use a cookie to temporarily store information about a user logging in with a third party login provider
+            app.UseExternalSignInCookie(Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ExternalCookie);
+            OAuthBearerOptions = new OAuthBearerAuthenticationOptions();
+
+            OAuthAuthorizationServerOptions OAuthServerOptions = new OAuthAuthorizationServerOptions()
             {
+
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/token"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
@@ -39,18 +47,14 @@ namespace Sinina.OnlineShop.API.Authentication
             };
 
             // Token Generation
-            app.UseOAuthAuthorizationServer(oAuthServerOptions);
-
-            OAuthBearerOptions = new OAuthBearerAuthenticationOptions();
+            app.UseOAuthAuthorizationServer(OAuthServerOptions);
             app.UseOAuthBearerAuthentication(OAuthBearerOptions);
 
-            app.UseExternalSignInCookie(Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ExternalCookie);
-            
             //Configure Google External Login
             googleAuthOptions = new GoogleOAuth2AuthenticationOptions()
             {
-                ClientId = "xxx",
-                ClientSecret = "xxx",
+                ClientId = "xxxxxx",
+                ClientSecret = "xxxxxx",
                 Provider = new GoogleAuthProvider()
             };
             app.UseGoogleAuthentication(googleAuthOptions);
@@ -58,8 +62,8 @@ namespace Sinina.OnlineShop.API.Authentication
             //Configure Facebook External Login
             facebookAuthOptions = new FacebookAuthenticationOptions()
             {
-                AppId = "xxx",
-                AppSecret = "xxx",
+                AppId = "xxxxxx",
+                AppSecret = "xxxxxx",
                 Provider = new FacebookAuthProvider()
             };
             app.UseFacebookAuthentication(facebookAuthOptions);

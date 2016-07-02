@@ -1,6 +1,6 @@
 ﻿using Microsoft.Owin.Security.Google;
-using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace Sinina.OnlineShop.API.Authentication.Providers
 {
