@@ -186,6 +186,7 @@
       <DependentUpon>201407121205456_AddClientsAndRefreshTokenTables.cs</DependentUpon>
     </Compile>
     <Compile Include="Authentication\Migrations\Configuration.cs" />
+    <Compile Include="Authentication\Providers\SimpleAuthorizationServerProvider.cs" />
     <Compile Include="Authentication\Providers\SimpleRefreshTokenProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
