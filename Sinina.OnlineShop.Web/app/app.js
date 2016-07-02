@@ -53,10 +53,6 @@ app.constant('ngAuthSettings', {
 
 app.config(function ($httpProvider) {
     $httpProvider.interceptors.push('authInterceptorService');
-    $httpProvider.defaults.headers.common = {};
-    $httpProvider.defaults.headers.post = {};
-    $httpProvider.defaults.headers.put = {};
-    $httpProvider.defaults.headers.patch = {};
 });
 
 app.run(['authService', function (authService) {

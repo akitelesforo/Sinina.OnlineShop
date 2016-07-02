@@ -181,8 +181,11 @@
     <Compile Include="Authentication\AuthRepository.cs" />
     <Compile Include="Authentication\Entities\Client.cs" />
     <Compile Include="Authentication\Entities\RefreshToken.cs" />
-    <Compile Include="Authentication\Migrations\201407121205456_AddClientsAndRefreshTokenTables.cs" />
-    <Compile Include="Authentication\Migrations\201407121205456_AddClientsAndRefreshTokenTables.Designer.cs" />
+	<Compile Include="Authentication\Migrations\201407121205456_AddClientsAndRefreshTokenTables.cs" />
+    <Compile Include="Authentication\Migrations\201407121205456_AddClientsAndRefreshTokenTables.Designer.cs">
+      <DependentUpon>201407121205456_AddClientsAndRefreshTokenTables.cs</DependentUpon>
+    </Compile>
+    
     <Compile Include="Authentication\Migrations\Configuration.cs" />
     <Compile Include="Authentication\Providers\SimpleRefreshTokenProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -226,7 +229,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Authentication\Migrations\201407121205456_AddClientsAndRefreshTokenTables.resx" />
+    <EmbeddedResource Include="Authentication\Migrations\201407121205456_AddClientsAndRefreshTokenTables.resx" >
+		<DependentUpon>201407121205456_AddClientsAndRefreshTokenTables.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\Sinina Shop API.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -242,16 +250,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
-          <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:56067/</IISUrl>
-          <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
-          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>
