@@ -234,6 +234,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\Sinina Shop API.pubxml" />
+    <None Include="Properties\PublishProfiles\Sinina.OnlineShop.API.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

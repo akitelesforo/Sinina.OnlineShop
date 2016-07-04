@@ -19,13 +19,13 @@ app.controller('associateController', ['$scope', '$location','$timeout','authSer
             startTimer();
 
         },
-          function (response) {
-              var errors = [];
-              for (var key in response.modelState) {
-                  errors.push(response.modelState[key]);
-              }
-              $scope.message = "Failed to register user due to:" + errors.join(' ');
-          });
+         function (response) {
+             var errors = [];
+             for (var key in response.data) {
+                 errors.push(response.data[key]);
+             }
+             $scope.message = "Failed to register user due to:" + errors.join(' ');
+         });
     };
 
     var startTimer = function () {
