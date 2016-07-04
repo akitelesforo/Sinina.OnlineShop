@@ -14,7 +14,6 @@ namespace Sinina.OnlineShop.API.Authentication.Providers
     {
         public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
-
             string clientId = string.Empty;
             string clientSecret = string.Empty;
             Client client = null;

@@ -22,7 +22,7 @@ namespace Sinina.OnlineShop.API.Authentication
             HttpConfiguration config = new HttpConfiguration();
 
             ConfigureOAuth(app);
-
+            
             WebApiConfig.Register(config);
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.UseWebApi(config);
@@ -34,7 +34,7 @@ namespace Sinina.OnlineShop.API.Authentication
             //use a cookie to temporarily store information about a user logging in with a third party login provider
             app.UseExternalSignInCookie(Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ExternalCookie);
             OAuthBearerOptions = new OAuthBearerAuthenticationOptions();
-
+            
             OAuthAuthorizationServerOptions OAuthServerOptions = new OAuthAuthorizationServerOptions()
             {
                 AllowInsecureHttp = true,
@@ -60,8 +60,8 @@ namespace Sinina.OnlineShop.API.Authentication
             //Configure Facebook External Login
             facebookAuthOptions = new FacebookAuthenticationOptions()
             {
-                AppId = "xxxxxx",
-                AppSecret = "xxxxxx",
+                AppId = "657079451125591",
+                AppSecret = "969eb2827c21f6c196bb0bb2490d0ef8",
                 Provider = new FacebookAuthProvider()
             };
             app.UseFacebookAuthentication(facebookAuthOptions);

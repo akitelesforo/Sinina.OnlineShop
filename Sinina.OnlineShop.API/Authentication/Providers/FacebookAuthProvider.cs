@@ -8,7 +8,7 @@ namespace Sinina.OnlineShop.API.Authentication.Providers
     {
         public override Task Authenticated(FacebookAuthenticatedContext context)
         {
-            context.Identity.AddClaim(new Claim("ExternalAccessToken", context.AccessToken));
+            context.Identity.AddClaim(new Claim("ExternalAccessToken", context.AccessToken, ClaimValueTypes.String, "Facebook"));
             return Task.FromResult<object>(null);
         }
     }

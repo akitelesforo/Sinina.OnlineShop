@@ -231,7 +231,6 @@ namespace Sinina.OnlineShop.API.Controllers
 
         private string ValidateClientAndRedirectUri(HttpRequestMessage request, ref string redirectUriOutput)
         {
-
             Uri redirectUri;
 
             var redirectUriString = GetQueryString(Request, "redirect_uri");
@@ -295,7 +294,7 @@ namespace Sinina.OnlineShop.API.Controllers
             {
                 //You can get it from here: https://developers.facebook.com/tools/accesstoken/
                 //More about debug_tokn here: http://stackoverflow.com/questions/16641083/how-does-one-get-the-app-access-token-for-debug-token-inspection-on-facebook
-                var appToken = "xxxxxx";
+                var appToken = "657079451125591|sgYyspvkhulOMS2xf2pfCycu0zo";
                 verifyTokenEndPoint = string.Format("https://graph.facebook.com/debug_token?input_token={0}&access_token={1}", accessToken, appToken);
             }
             else if (provider == "Google")
@@ -346,7 +345,6 @@ namespace Sinina.OnlineShop.API.Controllers
 
         private JObject GenerateLocalAccessTokenResponse(string userName)
         {
-
             var tokenExpiration = TimeSpan.FromDays(1);
 
             ClaimsIdentity identity = new ClaimsIdentity(OAuthDefaults.AuthenticationType);
@@ -361,12 +359,20 @@ namespace Sinina.OnlineShop.API.Controllers
             };
 
             var ticket = new AuthenticationTicket(identity, props);
-
+   
+            var context = new Microsoft.Owin.Security.Infrastructure.AuthenticationTokenCreateContext(
+                        Request.GetOwinContext(),
+                        Startup.OAuthBearerOptions.AccessTokenFormat, ticket);
+            Startup.OAuthBearerOptions.AccessTokenProvider.CreateAsync((context));
+            context.Ticket.Properties.Dictionary.Add("refresh_token", context.Token);
+            Microsoft.Owin.Security.DataHandler.Serializer.TicketSerializer serializer = new Microsoft.Owin.Security.DataHandler.Serializer.TicketSerializer();
+            
             var accessToken = Startup.OAuthBearerOptions.AccessTokenFormat.Protect(ticket);
 
             JObject tokenResponse = new JObject(
                                         new JProperty("userName", userName),
                                         new JProperty("access_token", accessToken),
+                                        new JProperty("resfresh_token", context.Token),
                                         new JProperty("token_type", "bearer"),
                                         new JProperty("expires_in", tokenExpiration.TotalSeconds.ToString()),
                                         new JProperty(".issued", ticket.Properties.IssuedUtc.ToString()),
@@ -392,7 +398,7 @@ namespace Sinina.OnlineShop.API.Controllers
 
                 Claim providerKeyClaim = identity.FindFirst(ClaimTypes.NameIdentifier);
 
-                if (providerKeyClaim == null || String.IsNullOrEmpty(providerKeyClaim.Issuer) || String.IsNullOrEmpty(providerKeyClaim.Value))
+                if (providerKeyClaim == null || string.IsNullOrEmpty(providerKeyClaim.Issuer) || string.IsNullOrEmpty(providerKeyClaim.Value))
                 {
                     return null;
                 }
