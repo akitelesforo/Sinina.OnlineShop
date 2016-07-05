@@ -13,6 +13,7 @@ using Sinina.OnlineShop.API.Authentication;
 using Newtonsoft.Json.Linq;
 using Microsoft.Owin.Security.OAuth;
 using Microsoft.AspNet.Identity.Owin;
+using System.Configuration;
 
 namespace Sinina.OnlineShop.API.Controllers
 {
@@ -294,7 +295,7 @@ namespace Sinina.OnlineShop.API.Controllers
             {
                 //You can get it from here: https://developers.facebook.com/tools/accesstoken/
                 //More about debug_tokn here: http://stackoverflow.com/questions/16641083/how-does-one-get-the-app-access-token-for-debug-token-inspection-on-facebook
-                var appToken = "657079451125591|sgYyspvkhulOMS2xf2pfCycu0zo";
+                var appToken = Convert.ToString(ConfigurationManager.AppSettings["FacebookAppToken"]);
                 verifyTokenEndPoint = string.Format("https://graph.facebook.com/debug_token?input_token={0}&access_token={1}", accessToken, appToken);
             }
             else if (provider == "Google")

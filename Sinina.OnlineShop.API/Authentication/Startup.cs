@@ -7,6 +7,7 @@ using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.Facebook;
 using Sinina.OnlineShop.API.Authentication.Providers;
 using System.Data.Entity;
+using System.Configuration;
 
 [assembly: OwinStartup(typeof(Sinina.OnlineShop.API.Authentication.Startup))]
 namespace Sinina.OnlineShop.API.Authentication
@@ -60,8 +61,8 @@ namespace Sinina.OnlineShop.API.Authentication
             //Configure Facebook External Login
             facebookAuthOptions = new FacebookAuthenticationOptions()
             {
-                AppId = "657079451125591",
-                AppSecret = "969eb2827c21f6c196bb0bb2490d0ef8",
+                AppId = Convert.ToString(ConfigurationManager.AppSettings["FacebookAppId"]),
+                AppSecret = Convert.ToString(ConfigurationManager.AppSettings["FacebookAppSecret"]),
                 Provider = new FacebookAuthProvider()
             };
             app.UseFacebookAuthentication(facebookAuthOptions);

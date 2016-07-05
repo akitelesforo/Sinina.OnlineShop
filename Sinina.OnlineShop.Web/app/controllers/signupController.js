@@ -6,6 +6,7 @@ app.controller('signupController', ['$scope', '$location', '$timeout', 'authServ
 
     $scope.registration = {
         userName: "",
+        email: "",
         password: "",
         confirmPassword: ""
     };
@@ -13,6 +14,7 @@ app.controller('signupController', ['$scope', '$location', '$timeout', 'authServ
     $scope.signUp = function () {
 
         if (!commonService.isBlank($scope.registration.userName) &&
+            !commonService.isBlank($scope.registration.email) &&
             !commonService.isBlank($scope.registration.password) &&
             !commonService.isBlank($scope.registration.confirmPassword)) {
 
@@ -25,10 +27,19 @@ app.controller('signupController', ['$scope', '$location', '$timeout', 'authServ
             },
              function (response) {
                  var errors = [];
-                 for (var key in response.data) {
-                     errors.push(response.data[key]);
+                 if (response.data.modelState) {
+                     for (var key in response.data.modelState) {
+                         for (var i = 0; i < response.data.modelState[key].length; i++) {
+                             errors.push(response.data.modelState[key][i]);
+                         }
+                     }
+                 } else {
+                     for (var key in response.data) {
+                         errors.push(response.data[key]);
+                     }
                  }
-                 $scope.message = "Failed to register user due to:" + errors.join(' ');
+                 
+                 $scope.message = "Failed to register user due to: " + errors.join(' ');
              });
 
         }

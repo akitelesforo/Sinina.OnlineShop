@@ -25,7 +25,8 @@ namespace Sinina.OnlineShop.API.Authentication
         {
             var user = new IdentityUser
             {
-                UserName = userModel.UserName
+                UserName = userModel.UserName,
+                Email = userModel.Email,
             };
 
             var result = await _userManager.CreateAsync(user, userModel.Password);
@@ -57,6 +58,13 @@ namespace Sinina.OnlineShop.API.Authentication
         public async Task<IdentityResult> AddLoginAsync(string userId, UserLoginInfo login)
         {
             var result = await _userManager.AddLoginAsync(userId, login);
+
+            return result;
+        }
+
+        public async Task<string> GenerateEmailConfirmationTokenAsync(string userId)
+        {
+            var result = await _userManager.GenerateEmailConfirmationTokenAsync(userId);
 
             return result;
         }

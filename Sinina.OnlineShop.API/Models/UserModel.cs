@@ -4,9 +4,15 @@ namespace Sinina.OnlineShop.API.Models
 {
     public class UserModel
     {
-        [Required]
+        [Required(ErrorMessage = "User name is not valid")]
         [Display(Name = "User name")]
         public string UserName { get; set; }
+
+        [Required(ErrorMessage = "The email address is required")]
+        [DataType(DataType.EmailAddress, ErrorMessage = "E-mail is not valid")]
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
