@@ -1,5 +1,6 @@
 ﻿'use strict';
-app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuthSettings', function ($scope, $location, authService, ngAuthSettings) {
+app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuthSettings', 'commonService',
+    function ($scope, $location, authService, ngAuthSettings, commonService) {
 
     $scope.loginData = {
         userName: "",
@@ -11,14 +12,17 @@ app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuth
 
     $scope.login = function () {
 
-        authService.login($scope.loginData).then(function (response) {
+        if (!commonService.isBlank($scope.loginData.userName) && !commonService.isBlank($scope.loginData.password)) {
+            authService.login($scope.loginData).then(function (response) {
 
-            $location.path('/orders');
+                $location.path('/items');
 
-        },
+            },
          function (err) {
              $scope.message = err.error_description;
          });
+
+        }        
     };
 
     $scope.authExternalProvider = function (provider) {
@@ -51,11 +55,11 @@ app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuth
 
             }
             else {
-                //Obtain access token and redirect to orders
+                //Obtain access token and redirect to items
                 var externalData = { provider: fragment.provider, externalAccessToken: fragment.external_access_token };
                 authService.obtainAccessToken(externalData).then(function (response) {
 
-                    $location.path('/orders');
+                    $location.path('/items');
 
                 },
              function (err) {

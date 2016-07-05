@@ -20,9 +20,9 @@ app.config(function ($routeProvider, $locationProvider, $httpProvider) {
         templateUrl: "/app/views/signup.html"
     });
 
-    $routeProvider.when("/orders", {
-        controller: "ordersController",
-        templateUrl: "/app/views/orders.html"
+    $routeProvider.when("/items", {
+        controller: "itemsController",
+        templateUrl: "/app/views/items.html"
     });
 
     $routeProvider.when("/refresh", {

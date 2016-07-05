@@ -1,5 +1,5 @@
 ﻿'use strict';
-app.controller('signupController', ['$scope', '$location', '$timeout', 'authService', function ($scope, $location, $timeout, authService) {
+app.controller('signupController', ['$scope', '$location', '$timeout', 'authService', 'commonService', function ($scope, $location, $timeout, authService, commonService) {
 
     $scope.savedSuccessfully = false;
     $scope.message = "";
@@ -12,20 +12,26 @@ app.controller('signupController', ['$scope', '$location', '$timeout', 'authServ
 
     $scope.signUp = function () {
 
-        authService.saveRegistration($scope.registration).then(function (response) {
+        if (!commonService.isBlank($scope.registration.userName) &&
+            !commonService.isBlank($scope.registration.password) &&
+            !commonService.isBlank($scope.registration.confirmPassword)) {
 
-            $scope.savedSuccessfully = true;
-            $scope.message = "User has been registered successfully, you will be redicted to login page in 2 seconds.";
-            startTimer();
+            authService.saveRegistration($scope.registration).then(function (response) {
 
-        },
-         function (response) {
-             var errors = [];
-             for (var key in response.data) {
-                 errors.push(response.data[key]);
-             }
-             $scope.message = "Failed to register user due to:" + errors.join(' ');
-         });
+                $scope.savedSuccessfully = true;
+                $scope.message = "User has been registered successfully, you will be redicted to login page in 2 seconds.";
+                startTimer();
+
+            },
+             function (response) {
+                 var errors = [];
+                 for (var key in response.data) {
+                     errors.push(response.data[key]);
+                 }
+                 $scope.message = "Failed to register user due to:" + errors.join(' ');
+             });
+
+        }
     };
 
     var startTimer = function () {
