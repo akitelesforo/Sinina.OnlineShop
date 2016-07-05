@@ -32,6 +32,8 @@ namespace Sinina.OnlineShop.API.Authentication
 
         public void ConfigureOAuth(IAppBuilder app)
         {
+            app.CreatePerOwinContext(AuthContext.Create);
+
             //use a cookie to temporarily store information about a user logging in with a third party login provider
             app.UseExternalSignInCookie(Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ExternalCookie);
             OAuthBearerOptions = new OAuthBearerAuthenticationOptions();

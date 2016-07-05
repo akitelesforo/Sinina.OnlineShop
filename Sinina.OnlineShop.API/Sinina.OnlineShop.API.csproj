@@ -178,6 +178,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authentication\ApplicationUserManager.cs" />
     <Compile Include="Authentication\AuthContext.cs" />
     <Compile Include="Authentication\AuthRepository.cs" />
     <Compile Include="Authentication\Entities\Client.cs" />
@@ -189,9 +190,12 @@
     <Compile Include="Authentication\Migrations\Configuration.cs" />
     <Compile Include="Authentication\Providers\SimpleAuthorizationServerProvider.cs" />
     <Compile Include="Authentication\Providers\SimpleRefreshTokenProvider.cs" />
+    <Compile Include="Authentication\Validators\ApplicationPasswordValidator.cs" />
+    <Compile Include="Authentication\Validators\ApplicationUserValidator.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\RefreshTokensController.cs" />
+    <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\ExternalLoginModels.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

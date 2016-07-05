@@ -14,6 +14,7 @@ using Newtonsoft.Json.Linq;
 using Microsoft.Owin.Security.OAuth;
 using Microsoft.AspNet.Identity.Owin;
 using System.Configuration;
+using Microsoft.Owin.Security.DataProtection;
 
 namespace Sinina.OnlineShop.API.Controllers
 {
@@ -51,7 +52,56 @@ namespace Sinina.OnlineShop.API.Controllers
                 return errorResult;
             }
 
+            var user = await _repo.FindUser(userModel.UserName, userModel.Password);
+
+            string code = await _repo.GenerateEmailConfirmationTokenAsync(user.Id);
+
+            var callbackUrl = new Uri(Url.Link("ConfirmEmailRoute", new { userId = user.Id, code = code }));
+
+            await _repo.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
             return Ok();
+        }
+
+        [Authorize]
+        [Route("ChangePassword")]
+        public async Task<IHttpActionResult> ChangePassword(ChangePasswordModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            IdentityResult result = await _repo.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            return Ok();
+        }
+
+        [HttpGet]
+        [Route("ConfirmEmail", Name = "ConfirmEmailRoute")]
+        public async Task<IHttpActionResult> ConfirmEmail(string userId = "", string code = "")
+        {
+            if (string.IsNullOrWhiteSpace(userId) || string.IsNullOrWhiteSpace(code))
+            {
+                ModelState.AddModelError("", "User Id and Code are required");
+                return BadRequest(ModelState);
+            }
+
+            IdentityResult result = await _repo.ConfirmEmailAsync(userId, code);
+
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+            else
+            {
+                return GetErrorResult(result);
+            }
         }
 
         // GET api/Account/ExternalLogin

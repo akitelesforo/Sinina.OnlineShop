@@ -13,12 +13,12 @@ namespace Sinina.OnlineShop.API.Authentication
     {
         private AuthContext _ctx;
 
-        private UserManager<IdentityUser> _userManager;
+        private ApplicationUserManager _userManager;
 
         public AuthRepository()
         {
             _ctx = new AuthContext();
-            _userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(_ctx));
+            _userManager = new ApplicationUserManager(new UserStore<IdentityUser>(_ctx));
         }
 
         public async Task<IdentityResult> RegisterUser(UserModel userModel)
@@ -65,6 +65,25 @@ namespace Sinina.OnlineShop.API.Authentication
         public async Task<string> GenerateEmailConfirmationTokenAsync(string userId)
         {
             var result = await _userManager.GenerateEmailConfirmationTokenAsync(userId);
+
+            return result;
+        }
+
+        public async Task SendEmailAsync(string userId, string subject, string body)
+        {
+            await _userManager.SendEmailAsync(userId, subject, body);
+        }
+
+        public async Task<IdentityResult> ConfirmEmailAsync(string userId, string code)
+        {
+            var result = await _userManager.ConfirmEmailAsync(userId, code);
+
+            return result;
+        }
+
+        public async Task<IdentityResult> ChangePasswordAsync(string userId, string currentPassword, string oldPasssword)
+        {
+            var result = await _userManager.ChangePasswordAsync(userId, currentPassword, oldPasssword);
 
             return result;
         }
