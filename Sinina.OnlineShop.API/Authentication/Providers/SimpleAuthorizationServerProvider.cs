@@ -91,6 +91,14 @@ namespace Sinina.OnlineShop.API.Authentication.Providers
                     context.SetError("invalid_grant", "The user name or password is incorrect.");
                     return;
                 }
+
+                bool isConfirmed = await _repo.IsEmailConfirmedAsync(user.Id);
+
+                if (!isConfirmed)
+                {
+                    context.SetError("invalid_grant", "The user email is not confirmed.");
+                    return;
+                }
             }
 
             var identity = new ClaimsIdentity(context.Options.AuthenticationType);

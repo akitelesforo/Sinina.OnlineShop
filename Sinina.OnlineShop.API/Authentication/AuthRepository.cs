@@ -69,6 +69,13 @@ namespace Sinina.OnlineShop.API.Authentication
             return result;
         }
 
+        public async Task<bool> IsEmailConfirmedAsync(string userId)
+        {
+            var result = await _userManager.IsEmailConfirmedAsync(userId);
+
+            return result;
+        }
+
         public async Task SendEmailAsync(string userId, string subject, string body)
         {
             await _userManager.SendEmailAsync(userId, subject, body);

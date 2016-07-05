@@ -58,7 +58,7 @@ namespace Sinina.OnlineShop.API.Controllers
 
             var callbackUrl = new Uri(Url.Link("ConfirmEmailRoute", new { userId = user.Id, code = code }));
 
-            await _repo.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+            await _repo.SendEmailAsync(user.Id, "Welcome to Sinina!", "Please confirm your account in Sinina to shop online by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
             return Ok();
         }
