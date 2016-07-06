@@ -96,7 +96,7 @@ namespace Sinina.OnlineShop.API.Authentication.Providers
 
                 if (!isConfirmed)
                 {
-                    context.SetError("invalid_grant", "The user email is not confirmed.");
+                    context.SetError("invalid_grant", "The account is not yet activated. Please check your email.");
                     return;
                 }
             }
