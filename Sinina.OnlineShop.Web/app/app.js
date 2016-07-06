@@ -1,6 +1,23 @@
 ﻿
 var app = angular.module('AngularAuthApp', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar']);
 
+var serviceBase = 'http://sininashopapi.com/';
+
+app.constant('ngAuthSettings', {
+    apiServiceBaseUri: serviceBase,
+    clientId: 'ngAuthApp'
+});
+
+app.config(function ($httpProvider) {
+    $httpProvider.interceptors.push('authInterceptorService');
+});
+
+app.run(['authService', function (authService) {
+    authService.fillAuthData();
+}]);
+
+// Route
+
 app.config(function ($routeProvider, $locationProvider, $httpProvider) {
 
     $httpProvider.defaults.useXDomain = true;
@@ -40,23 +57,29 @@ app.config(function ($routeProvider, $locationProvider, $httpProvider) {
         templateUrl: "/app/views/associate.html"
     });
 
+    $routeProvider.when("/emailconfirmation", {
+        controller: "emailconfirmationController",
+        templateUrl: "/app/views/emailconfirmation.html"
+    });
+
     $routeProvider.otherwise({ redirectTo: "/home" });
 
 });
 
-var serviceBase = 'http://sininashopapi.com/';
+// Directives
 
-app.constant('ngAuthSettings', {
-    apiServiceBaseUri: serviceBase,
-    clientId: 'ngAuthApp'
+app.directive('script', function () {
+    return {
+        restrict: 'E',
+        scope: false,
+        link: function (scope, elem, attr) {
+            if (attr.type === 'text/javascript-lazy') {
+                var code = elem.text();
+                var f = new Function(code);
+                f();
+            }
+        }
+    };
 });
-
-app.config(function ($httpProvider) {
-    $httpProvider.interceptors.push('authInterceptorService');
-});
-
-app.run(['authService', function (authService) {
-    authService.fillAuthData();
-}]);
 
 

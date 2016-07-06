@@ -15,6 +15,7 @@ using Microsoft.Owin.Security.OAuth;
 using Microsoft.AspNet.Identity.Owin;
 using System.Configuration;
 using Microsoft.Owin.Security.DataProtection;
+using Sinina.OnlineShop.Infrastructure.Core;
 
 namespace Sinina.OnlineShop.API.Controllers
 {
@@ -56,7 +57,7 @@ namespace Sinina.OnlineShop.API.Controllers
 
             string code = await _repo.GenerateEmailConfirmationTokenAsync(user.Id);
 
-            var callbackUrl = new Uri(Url.Link("ConfirmEmailRoute", new { userId = user.Id, code = code }));
+            var callbackUrl = string.Concat(Constant.BaseUrl, Constant.EmailConfirmation, "?userId=", user.Id, "&code=", code);
 
             await _repo.SendEmailAsync(user.Id, "Welcome to Sinina!", "Please confirm your account in Sinina to shop online by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
@@ -83,7 +84,7 @@ namespace Sinina.OnlineShop.API.Controllers
         }
 
         [HttpGet]
-        [Route("ConfirmEmail", Name = "ConfirmEmailRoute")]
+        [Route("ConfirmEmail/{userId}/{code}")]
         public async Task<IHttpActionResult> ConfirmEmail(string userId = "", string code = "")
         {
             if (string.IsNullOrWhiteSpace(userId) || string.IsNullOrWhiteSpace(code))

@@ -65,6 +65,7 @@
   <ItemGroup>
     <Content Include="app\app.js" />
     <Content Include="app\controllers\associateController.js" />
+    <Content Include="app\controllers\emailconfirmationController.js" />
     <Content Include="app\controllers\homeController.js" />
     <Content Include="app\controllers\indexController.js" />
     <Content Include="app\controllers\loginController.js" />
@@ -78,6 +79,7 @@
     <Content Include="app\services\itemsService.js" />
     <Content Include="app\services\tokensManagerService.js" />
     <Content Include="app\views\associate.html" />
+    <Content Include="app\views\emailconfirmation.html" />
     <Content Include="app\views\home.html" />
     <Content Include="app\views\login.html" />
     <Content Include="app\views\items.html" />
