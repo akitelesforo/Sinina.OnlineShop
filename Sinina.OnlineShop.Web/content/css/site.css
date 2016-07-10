@@ -1,6 +1,4 @@
-﻿/* Sticky footer styles
--------------------------------------------------- */
-html {
+﻿html {
     position: relative;
     min-height: 100%;
 }
@@ -8,11 +6,9 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
-      padding-top: 40px;
-  xpadding-bottom: 10px;
+    padding-top: 40px;
+    xpadding-bottom: 10px;
 }
-
-
 
 #footer {
     position: absolute;
@@ -27,6 +23,15 @@ body {
     margin: 20px 0;
 }
 
+.no-margin {
+    margin: 0;
+}
+
+.margin-15 {
+    margin: 15px;
+}
+
+/* Log In */
 .form-login {
     max-width: 330px;
     padding: 0px 15px 5px 15px;
@@ -57,4 +62,3 @@ body {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
-

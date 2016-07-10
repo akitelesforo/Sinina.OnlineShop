@@ -14,7 +14,6 @@ using Newtonsoft.Json.Linq;
 using Microsoft.Owin.Security.OAuth;
 using Microsoft.AspNet.Identity.Owin;
 using System.Configuration;
-using Microsoft.Owin.Security.DataProtection;
 using Sinina.OnlineShop.Infrastructure.Core;
 
 namespace Sinina.OnlineShop.API.Controllers
@@ -83,6 +82,7 @@ namespace Sinina.OnlineShop.API.Controllers
             return Ok();
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("ConfirmEmail/{userId}/{code}")]
         public async Task<IHttpActionResult> ConfirmEmail(string userId = "", string code = "")

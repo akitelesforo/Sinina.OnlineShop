@@ -95,6 +95,7 @@
     <Content Include="content\css\social-buttons.css" />
     <Content Include="content\fonts\fontawesome-webfont.svg" />
     <Content Include="content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Favicon.ico" />
     <Content Include="index.html" />
     <Content Include="packages.config" />
     <Content Include="scripts\angular-route.min.js" />
