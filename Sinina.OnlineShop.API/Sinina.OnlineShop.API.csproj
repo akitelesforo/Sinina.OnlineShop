@@ -227,6 +227,15 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Authentication\Migrations\201407121205456_AddClientsAndRefreshTokenTables.resx">
+      <DependentUpon>201407121205456_AddClientsAndRefreshTokenTables.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\Sinina Shop API.pubxml" />
+    <None Include="Properties\PublishProfiles\Sinina.OnlineShop.API.pubxml" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Sinina.OnlineShop.Infrastructure.Core\Sinina.OnlineShop.Infrastructure.Core.csproj">
       <Project>{290acf62-1a7e-411e-b5e5-6cdcec8557e7}</Project>
       <Name>Sinina.OnlineShop.Infrastructure.Core</Name>
@@ -235,15 +244,6 @@
       <Project>{5015d86b-f8a5-47ce-b064-da7cd054d75f}</Project>
       <Name>Sinina.OnlineShop.Utility</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Authentication\Migrations\201407121205456_AddClientsAndRefreshTokenTables.resx">
-      <DependentUpon>201407121205456_AddClientsAndRefreshTokenTables.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\PublishProfiles\Sinina Shop API.pubxml" />
-    <None Include="Properties\PublishProfiles\Sinina.OnlineShop.API.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

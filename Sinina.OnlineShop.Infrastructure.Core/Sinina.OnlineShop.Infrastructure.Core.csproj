@@ -34,6 +34,7 @@
       <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -42,6 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\AdoNetContext.cs" />
+    <Compile Include="Base\AdoNetUnitOfWork.cs" />
+    <Compile Include="Base\AppConfigConnectionFactory.cs" />
+    <Compile Include="Base\IConnectionFactory.cs" />
+    <Compile Include="Base\IUnitOfWork.cs" />
+    <Compile Include="Base\Repository.cs" />
     <Compile Include="Constant.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\Log4NetLogger.cs" />
